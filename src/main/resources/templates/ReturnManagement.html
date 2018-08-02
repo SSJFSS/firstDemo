@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <script
+            src="http://code.jquery.com/jquery-latest.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>还书管理系统</title>
+</head>
+<body>
+    <h1>请填写还书信息</h1>
+    <form>
+        <strong>书名:</strong>
+        <input type="text" name="bookname" id="bookname"/></br>
+        </br>
+
+        <strong>出版社:</strong>
+        <input type="text" name="bookconcern" id="bookconcern"/></br>
+        </br>
+
+        <strong>还书人:</strong>
+        <input type="text" name="returnperson" id="returnperson"/></br>
+        </br>
+
+        <strong>数量:</strong>
+        <input type="text" name="number" id="number"/></br>
+        </br>
+        <!-- <strong>Your profile:</strong></br>
+         <textarea cols="50" rows="4" name="profile" id="profile"></textarea></br>
+         </br>-->
+
+        <!-- <strong>Interests:</strong></br>
+         <input type="checkbox" name="development" value="1" checked="checked">Development</br>
+         <input type="checkbox" name="design" value="2" >Design</br>
+         <input type="checkbox" name="business" value="3" >Business</br>
+         </br>-->
+
+        <button type="button" onclick="onClick()">确定</button>
+    </form>
+    <script type="text/javascript">
+
+         function onClick(){
+            var name=$("#bookname").val();
+            var concern=$("#bookconcern").val();
+            var num=$("#number").val();
+            var returnperson=$("#returnperson").val();
+            var error="";
+            if (name.length=="") {
+                    error+="书名不能为空";
+                    error+="\n";
+                   // alert('书名不能为空');
+
+                }
+             if (concern.length=="") {
+                    error+="出版社不能为空";
+                    error+="\n";
+                    }
+             if (returnperson.length=="") {
+                    error+="还书人不能为空";
+                    error+="\n";
+                    }
+             if (num.length=="") {
+                    error+="工号不能为空";
+                    error+="\n";
+                    }
+             if (error!="") {
+                    alert(error);
+                    }
+             else{
+                  /* debugger */
+                    $.ajax({
+                        type:'POST',
+                        /* dataType:'json', */
+                        dataType:'json',
+                        url:'http://localhost:8080/index/ReturnManagement/insert',
+                        contentType:'application/json;charset=UTF-8',
+
+                        data:JSON.stringify({"name":name,"concern":concern,"returnperson":returnperson,"number":num}),
+
+                        success:function(data){//返回json结果
+
+                            //username==data.username&amp;&amp;password==data.password
+                            //if(name==data.name&amp;&amp;concern==data.concern&amp;&amp;user==data.user&amp;&amp;num==data.num){
+                            if(data){
+                                alert("已还书");
+                                console("传送数据成功");
+                                //JSON.stringify(data)
+                               // window.location.href="index.html?username="+data.username;
+                                //data.username
+                            }
+                             else {
+                                //debugger;
+                                alert("借阅人以及借阅过本书");
+                            }
+                        }
+                    });
+                  alert("还书成功");
+                    /* console.log({"username":username,"password":password}); */
+            }
+
+        }
+
+</script>
+</body>
+</html>

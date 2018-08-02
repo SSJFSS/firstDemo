@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+<head>
+    <script
+            src="http://code.jquery.com/jquery-latest.js"></script>
+    <meta charset="UTF-8">
+    <title>填写信息</title>
+</head>
+<body>
+<h1>请填写以下信息</h1></br>
+<form>
+    <strong>书名:</strong>
+    <input type="text" name="bookname" id="name"/></br>
+    </br>
+
+    <strong>出版社:</strong>
+    <input type="text" name="bookconcern" id="bookconcern"/></br>
+    </br>
+
+    <strong>借阅人:</strong>
+    <input type="text" name="borrowuser" id="borrowuser"/></br>
+    </br>
+
+    <strong>工号:</strong>
+    <input type="text" name="worknumber" id="worknum"/></br>
+    </br>
+   <!-- <strong>Your profile:</strong></br>
+    <textarea cols="50" rows="4" name="profile" id="profile"></textarea></br>
+    </br>-->
+
+    <strong>借书时间:</strong></br>
+    <select>
+        <option value="harf-month" selected="selected" name="time">15天</option>
+        <option value="month" name="time">30天</option>
+    </select></br>
+    </br>
+
+   <!-- <strong>Interests:</strong></br>
+    <input type="checkbox" name="development" value="1" checked="checked">Development</br>
+    <input type="checkbox" name="design" value="2" >Design</br>
+    <input type="checkbox" name="business" value="3" >Business</br>
+    </br>-->
+    <button type="button" id="sub" onclick="onClick()">确定</button>
+</form>
+</body>
+<script type="text/javascript">
+        function onClick(){
+        var name=$("#name").val();
+
+        alert(name);
+
+        }
+</script>
+</html>

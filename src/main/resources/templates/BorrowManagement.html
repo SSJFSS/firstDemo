@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <script
+            src="http://code.jquery.com/jquery-latest.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>借书管理系统</title>
+    <script type="text/javascript">
+        alert('借书系统');
+    </script>
+</head>
+<body>
+    <h1>请填写借阅信息</h1>
+    <form>
+        <strong>序号:</strong>
+        <input type="text" name="id" id="id"/></br>
+        </br>
+        <strong>书名:</strong>
+        <input type="text" name="bookname" id="bookname"/></br>
+        </br>
+
+        <strong>出版社:</strong>
+        <input type="text" name="bookconcern" id="bookconcern"/></br>
+        </br>
+
+        <strong>借阅人:</strong>
+        <input type="text" name="borrowuser" id="borrowuser"/></br>
+        </br>
+
+        <strong>工号:</strong>
+        <input type="text" name="worknum" id="worknum"/></br>
+        </br>
+        <!-- <strong>Your profile:</strong></br>
+         <textarea cols="50" rows="4" name="profile" id="profile"></textarea></br>
+         </br>-->
+
+        <strong>借书时间:</strong></br>
+        <select>
+            <option value="harf-month" selected="selected" name="time">15天</option>
+            <option value="month" name="time" >30天</option>
+        </select></br>
+        </br>
+
+        <!-- <strong>Interests:</strong></br>
+         <input type="checkbox" name="development" value="1" checked="checked">Development</br>
+         <input type="checkbox" name="design" value="2" >Design</br>
+         <input type="checkbox" name="business" value="3" >Business</br>
+         </br>-->
+
+        <button type="button" onclick="onClick()">确定</button>
+    </form>
+
+</body>
+    <script type="text/javascript">
+
+         function onClick(){
+            var id=$("#id").val();
+            var name=$("#bookname").val();
+            var concern=$("#bookconcern").val();
+            var num=$("#worknum").val();
+            var user=$("#borrowuser").val();
+            var time="fifthday";
+            var error="";
+            if (name.length=="") {
+                    error+="书名不能为空";
+                    error+="\n";
+                   // alert('书名不能为空');
+
+                }
+             if (concern.length=="") {
+                    error+="出版社不能为空";
+                    error+="\n";
+                    }
+             if (user.length=="") {
+                    error+="借阅人不能为空";
+                    error+="\n";
+                    }
+             if (num.length=="") {
+                    error+="工号不能为空";
+                    error+="\n";
+                    }
+            // if (time.length=="") {
+              //      error+="借阅时间不能为空";
+             //       error+="\n";
+               //     }
+             if (error!="") {
+                    alert(error);
+                    }
+             else{
+                  /* debugger */
+                    $.ajax({
+                        type:'POST',
+                        /* dataType:'json', */
+                        dataType:'json',
+                        url:'http://localhost:8080/index/BorrowManagement/insert',
+                        contentType:'application/json;charset=UTF-8',
+
+                        data:JSON.stringify({"id":id,"name":name,"concern":concern,"user":user,"num":num,"time":time}),
+
+                        success:function(data){//返回json结果
+
+                            //username==data.username&amp;&amp;password==data.password
+                            //if(name==data.name&amp;&amp;concern==data.concern&amp;&amp;user==data.user&amp;&amp;num==data.num){
+                            if(data){
+                                alert("已借阅");
+                                console("传送数据成功");
+                                //JSON.stringify(data)
+                               // window.location.href="index.html?username="+data.username;
+                                //data.username
+                            }
+                             else {
+                                //debugger;
+                                alert("借阅人以及借阅过本书");
+                            }
+                        }
+                    });
+                  alert("借阅成功");
+                    /* console.log({"username":username,"password":password}); */
+            }
+
+        }
+</script>
+
+
+</html>

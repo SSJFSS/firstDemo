@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+    <script
+            src="http://code.jquery.com/jquery-latest.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Title</title>
+    <!--<link rel="stylesheet" href="tests.css"type="text/css">-->
+
+
+</head>
+<body>
+    <h1>图书查询</h1>
+    <!--<form>-->
+        <!--<strong>书名:</strong>-->
+        <!--<p type="text" name="bookname" id="bookname"/></br>-->
+        <!--</br>-->
+        <!--<strong>出版社:</strong>-->
+        <!--<p type="text" name="bookconcern" id="bookconcern"/></br>-->
+        <!--</br>-->
+        <!--<strong>作者:</strong>-->
+        <!--<p type="text" name="writer" id="writer"/></br>-->
+        <!--</br>-->
+        <!--<strong>数量:</strong>-->
+        <!--<p type="text" name="number" id="number"/></br>-->
+        <!--</br>-->
+    <!--</form>-->
+
+</body>
+<script type="text/javascript">
+        var x;
+        var person=prompt("请输入查询的书名","")
+        if(person==""){
+            alert('书名不能为空');
+            //document.getElementById("bookname").innerHTML=person;
+        }else{
+            alert(person);
+            $.ajax({
+                        type:'POST',
+                        /* dataType:'json', */
+                        dataType:'json',
+                        url:'http://localhost:8080/index/SearchLiabrary',
+                        contentType:'application/json;charset=UTF-8',
+
+                        data:JSON.stringify({"bookname":person}),
+
+                        success:function(data){//返回json结果
+
+                            //username==data.username&amp;&amp;password==data.password
+                            //if(name==data.name&amp;&amp;concern==data.concern&amp;&amp;user==data.user&amp;&amp;num==data.num){
+                            if(data!=null){
+                                <!--alert("已借阅");-->
+                               //document.getElementById("bookname").innerHTML=data.bookname;
+                               //document.getElementById("booconcern").innerHTML=data.bookconcern;
+                               //document.getElementById("writer").innerHTML=data.writer;
+                               //document.getElementById("number").innerHTML=data.number;
+                               alert("书名："+data.bookname+"\n"+"出版社："+data.bookconcern+"\n"+"作者："+data.writer+"\n"+"库存数量："+data.number);
+                                //JSON.stringify(data)
+                               // window.location.href="index.html?username="+data.username;
+                                //data.username
+                            }
+                             else {
+                                //debugger;
+                                alert("查询图书不存在");
+                            }
+                        }
+                    });
+                  alert("查询成功");
+                    /* console.log({"username":username,"password":password}); */
+
+        }
+</script>
+</html>
